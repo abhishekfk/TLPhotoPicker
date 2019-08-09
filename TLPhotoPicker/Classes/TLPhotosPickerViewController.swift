@@ -898,7 +898,8 @@ extension TLPhotosPickerViewController: UICollectionViewDelegate,UICollectionVie
                 queue.async { [weak self, weak cell] in
                     guard let `self` = self else { return }
                     let requestId = self.photoLibrary.imageAsset(asset: phAsset, size: self.thumbnailSize, completionBlock: { (image,complete) in
-                        DispatchQueue.main.async {
+                        DispatchQueue.main.async {[weak self, weak cell] in
+                            guard let `self` = self else { return }
                             if self.requestIds[indexPath] != nil {
                                 cell?.imageView?.image = image
                                 cell?.update(with: phAsset)
